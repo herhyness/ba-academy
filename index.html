@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Her Hyness BA Academy</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink:       #E8517A;
+  --pink-dark:  #B8345C;
+  --pink-light: #F9D0DB;
+  --pink-pale:  #FDF0F3;
+  --gold:       #F2B705;
+  --silver:     #A8B2BD;
+  --bronze:     #CD7F32;
+  --platinum:   #8B7FD4;
+  --bg:         #FDF0F3;
+  --card:       #FFFFFF;
+  --text:       #2D1B24;
+  --text2:      #7A5A65;
+  --border:     #F0D0D8;
+  --green:      #2ECC71;
+  --red:        #E74C3C;
+  --shadow:     0 4px 20px rgba(232,81,122,0.12);
+  --radius:     16px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html {
+  width: 100%;
+  font-size: 16px !important;
+  -webkit-text-size-adjust: 100% !important;
+  text-size-adjust: 100% !important;
+}
+
+body {
+  font-family: 'Sarabun', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow-x: hidden;
+  font-size: 16px;
+  touch-action: manipulation;
+}
+
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* ─── SCREENS (defined above in body block) ─── */
+
+/* ─── LOGIN SCREEN ───────────────────────── */
+#screen-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(160deg, #fff 0%, var(--pink-pale) 60%, var(--pink-light) 100%);
+  width: 100%;
+}
+.login-logo {
+  width: 88px; height: 88px;
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+  border-radius: 28px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px;
+  box-shadow: 0 8px 32px rgba(232,81,122,0.35);
+  margin-bottom: 20px;
+  animation: logoPop 0.6s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes logoPop { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.login-brand { font-family: 'Prompt', sans-serif; font-size: 22px; font-weight: 700; color: var(--pink-dark); margin-bottom: 4px; }
+.login-sub { font-size: 13px; color: var(--text2); margin-bottom: 36px; }
+
+.login-card {
+  background: white;
+  border-radius: 24px;
+  padding: 28px 24px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow);
+}
+.login-step-title { font-size: 15px; font-weight: 600; margin-bottom: 16px; color: var(--text); }
+
+.input-wrap { position: relative; margin-bottom: 14px; }
+.input-wrap input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 15px;
+  background: var(--pink-pale);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.input-wrap input:focus { border-color: var(--pink); background: white; }
+.input-wrap input::placeholder { color: var(--text2); }
+
+/* PIN input */
+.pin-wrap { display: flex; gap: 10px; justify-content: center; margin: 8px 0 20px; }
+.pin-box {
+  width: 54px; height: 60px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 24px; font-weight: 700;
+  text-align: center;
+  background: var(--pink-pale);
+  color: var(--pink-dark);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.pin-box:focus { border-color: var(--pink); background: white; }
+
+.btn-primary {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 16px; font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(232,81,122,0.35);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-primary:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(232,81,122,0.25); }
+.btn-secondary {
+  width: 100%; padding: 12px;
+  background: transparent; border: 1.5px solid var(--border);
+  border-radius: 12px; font-family: 'Sarabun', sans-serif;
+  font-size: 14px; color: var(--text2); cursor: pointer; margin-top: 8px;
+}
+
+.verify-card {
+  background: var(--pink-pale);
+  border: 1.5px solid var(--pink-light);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.verify-name { font-size: 18px; font-weight: 700; color: var(--pink-dark); }
+.verify-detail { font-size: 13px; color: var(--text2); margin-top: 4px; }
+
+.error-msg { color: var(--red); font-size: 13px; text-align: center; margin-top: 10px; }
+
+/* ─── TOP BAR ─────────────────────────────── */
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: white;
+  padding: 14px 20px 10px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 2px 12px rgba(232,81,122,0.08);
+}
+.topbar-logo { display: flex; align-items: center; gap: 8px; }
+.topbar-logo .dot { width: 32px; height: 32px; background: linear-gradient(135deg, var(--pink), var(--pink-dark)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.topbar-brand { font-family: 'Prompt', sans-serif; font-size: 15px; font-weight: 700; color: var(--pink-dark); }
+.topbar-points { display: flex; align-items: center; gap: 6px; background: var(--pink-pale); padding: 6px 12px; border-radius: 20px; }
+.topbar-pts-num { font-size: 15px; font-weight: 700; color: var(--pink-dark); }
+.topbar-pts-lbl { font-size: 11px; color: var(--text2); }
+
+/* ─── NAV BAR ─────────────────────────────── */
+.navbar {
+  position: fixed; bottom: 0; left: 0;
+  width: 100%; max-width: 100%;
+  background: white;
+  display: flex;
+  box-shadow: 0 -2px 20px rgba(232,81,122,0.12);
+  z-index: 100;
+}
+.nav-btn {
+  flex: 1; padding: 10px 4px 12px;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  border: none; background: none; cursor: pointer;
+  color: var(--text2); font-family: 'Sarabun', sans-serif; font-size: 11px;
+  transition: color 0.2s;
+}
+.nav-btn.active { color: var(--pink); }
+.nav-icon { font-size: 22px; line-height: 1; }
+.nav-dot { width: 4px; height: 4px; background: var(--pink); border-radius: 50%; opacity: 0; transition: opacity 0.2s; }
+.nav-btn.active .nav-dot { opacity: 1; }
+
+/* ─── SECTION PADDING ─────────────────────── */
+.content { padding: 16px 16px 90px; }
+
+/* ─── HERO CARD ───────────────────────────── */
+.hero-card {
+  background: linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 100%);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  color: white;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-card::before {
+  content: '';
+  position: absolute; top: -30px; right: -20px;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+}
+.hero-card::after {
+  content: '';
+  position: absolute; bottom: -40px; right: 30px;
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+}
+.hero-greeting { font-size: 13px; opacity: 0.85; margin-bottom: 2px; }
+.hero-name { font-family: 'Prompt', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 14px; }
+.hero-points-row { display: flex; align-items: flex-end; gap: 8px; margin-bottom: 14px; }
+.hero-pts { font-family: 'Prompt', sans-serif; font-size: 42px; font-weight: 700; line-height: 1; }
+.hero-pts-lbl { font-size: 14px; opacity: 0.85; padding-bottom: 6px; }
+.tier-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 20px; padding: 5px 12px;
+  font-size: 13px; font-weight: 600;
+}
+.progress-bar-wrap { margin-top: 14px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 12px; opacity: 0.85; margin-bottom: 6px; }
+.progress-bar {
+  height: 6px; background: rgba(255,255,255,0.25); border-radius: 10px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: white; border-radius: 10px;
+  transition: width 1s cubic-bezier(.4,0,.2,1);
+}
+
+/* ─── STAT CARDS ──────────────────────────── */
+.stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px; }
+.stat-card { background: white; border-radius: 12px; padding: 14px 10px; text-align: center; box-shadow: var(--shadow); }
+.stat-num { font-family: 'Prompt', sans-serif; font-size: 22px; font-weight: 700; color: var(--pink); }
+.stat-lbl { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+/* ─── SECTION TITLE ───────────────────────── */
+.sec-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+
+/* ─── ACTIVITY CARDS ──────────────────────── */
+.activity-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.activity-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.15s;
+  text-decoration: none; color: inherit;
+}
+.activity-card:active { transform: scale(0.98); }
+.activity-icon {
+  width: 46px; height: 46px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
+  flex-shrink: 0;
+}
+.activity-info { flex: 1; }
+.activity-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.activity-desc { font-size: 12px; color: var(--text2); }
+.activity-pts { font-family: 'Prompt', sans-serif; font-size: 16px; font-weight: 700; color: var(--pink); white-space: nowrap; }
+
+/* ─── BADGE SECTION ───────────────────────── */
+.badge-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 16px; }
+.badge-item { text-align: center; }
+.badge-icon {
+  width: 56px; height: 56px; border-radius: 18px; margin: 0 auto 6px;
+  display: flex; align-items: center; justify-content: center; font-size: 26px;
+  background: white; box-shadow: var(--shadow);
+  border: 2px solid transparent;
+  transition: transform 0.2s;
+}
+.badge-icon.earned { border-color: var(--pink); background: var(--pink-pale); }
+.badge-icon.locked { filter: grayscale(1); opacity: 0.4; }
+.badge-name { font-size: 10px; color: var(--text2); }
+
+/* ─── QUIZ SCREEN ─────────────────────────── */
+.quiz-start-card {
+  background: white; border-radius: var(--radius);
+  padding: 24px; text-align: center;
+  box-shadow: var(--shadow); margin-bottom: 16px;
+}
+.quiz-start-icon { font-size: 48px; margin-bottom: 12px; }
+.quiz-start-title { font-family: 'Prompt', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.quiz-start-desc { font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 20px; }
+
+.cat-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-bottom: 20px; }
+.cat-btn {
+  padding: 14px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  text-align: center;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  transition: all 0.2s;
+}
+.cat-btn.selected {
+  border-color: var(--pink);
+  background: var(--pink-pale);
+  color: var(--pink-dark);
+}
+
+/* quiz in progress */
+.quiz-progress-bar {
+  height: 4px; background: var(--border); border-radius: 10px;
+  margin-bottom: 20px; overflow: hidden;
+}
+.quiz-progress-fill { height: 100%; background: var(--pink); border-radius: 10px; transition: width 0.4s; }
+.quiz-counter { font-size: 12px; color: var(--text2); text-align: right; margin-bottom: 8px; }
+
+.question-card {
+  background: white; border-radius: var(--radius); padding: 20px;
+  box-shadow: var(--shadow); margin-bottom: 14px;
+}
+.question-cat { font-size: 11px; font-weight: 600; color: var(--pink); background: var(--pink-pale); display: inline-block; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; }
+.question-text { font-size: 15px; line-height: 1.6; font-weight: 500; }
+
+.choices-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.choice-btn {
+  padding: 14px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px; background: white;
+  cursor: pointer; text-align: left;
+  font-family: 'Sarabun', sans-serif; font-size: 14px; color: var(--text);
+  display: flex; align-items: center; gap: 12px;
+  transition: all 0.2s;
+}
+.choice-btn:active { transform: scale(0.98); }
+.choice-key {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--pink-pale); display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: var(--pink-dark); flex-shrink: 0;
+}
+.choice-btn.selected { border-color: var(--pink); background: var(--pink-pale); }
+.choice-btn.selected .choice-key { background: var(--pink); color: white; }
+.choice-btn.correct { border-color: var(--green); background: #E8F8F0; }
+.choice-btn.correct .choice-key { background: var(--green); color: white; }
+.choice-btn.wrong { border-color: var(--red); background: #FDF0EE; }
+.choice-btn.wrong .choice-key { background: var(--red); color: white; }
+
+.explanation-box {
+  background: var(--pink-pale); border-left: 3px solid var(--pink);
+  border-radius: 0 12px 12px 0; padding: 14px;
+  font-size: 13px; line-height: 1.6; color: var(--text2);
+  margin-bottom: 14px; display: none;
+}
+
+/* quiz result */
+.result-card {
+  background: white; border-radius: var(--radius);
+  padding: 28px 20px; text-align: center;
+  box-shadow: var(--shadow); margin-bottom: 16px;
+}
+.result-emoji { font-size: 56px; margin-bottom: 12px; }
+.result-score { font-family: 'Prompt', sans-serif; font-size: 48px; font-weight: 700; color: var(--pink); }
+.result-pts { font-size: 20px; font-weight: 700; color: var(--gold); margin: 8px 0; }
+.result-detail { font-size: 14px; color: var(--text2); }
+
+/* new badge popup */
+.badge-popup {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%; z-index: 999;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  display: none;
+}
+.badge-popup.show { display: flex; }
+.badge-popup-card {
+  background: white; border-radius: 24px; padding: 32px 24px;
+  text-align: center; margin: 20px;
+  animation: popIn 0.4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.badge-popup-icon { font-size: 64px; margin-bottom: 12px; }
+.badge-popup-title { font-family: 'Prompt', sans-serif; font-size: 22px; font-weight: 700; color: var(--pink-dark); margin-bottom: 6px; }
+.badge-popup-desc { font-size: 14px; color: var(--text2); margin-bottom: 20px; }
+
+/* ─── RANKING SCREEN ──────────────────────── */
+.scope-tabs { display: flex; gap: 6px; margin-bottom: 16px; }
+.scope-tab {
+  flex: 1; padding: 9px 4px;
+  border: 1.5px solid var(--border); border-radius: 10px;
+  background: white; font-family: 'Sarabun', sans-serif;
+  font-size: 13px; font-weight: 600; color: var(--text2);
+  cursor: pointer; text-align: center; transition: all 0.2s;
+}
+.scope-tab.active { border-color: var(--pink); background: var(--pink-pale); color: var(--pink-dark); }
+
+.rank-list { display: flex; flex-direction: column; gap: 8px; }
+.rank-item {
+  background: white; border-radius: 12px;
+  padding: 12px 14px;
+  display: flex; align-items: center; gap: 12px;
+  box-shadow: var(--shadow);
+}
+.rank-item.me { border: 1.5px solid var(--pink); background: var(--pink-pale); }
+.rank-num {
+  width: 32px; height: 32px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 15px; flex-shrink: 0;
+  background: var(--pink-pale); color: var(--pink-dark);
+}
+.rank-num.gold   { background: var(--gold); color: white; }
+.rank-num.silver { background: var(--silver); color: white; }
+.rank-num.bronze { background: var(--bronze); color: white; }
+.rank-info { flex: 1; }
+.rank-name { font-size: 14px; font-weight: 600; }
+.rank-branch { font-size: 11px; color: var(--text2); }
+.rank-pts { font-family: 'Prompt', sans-serif; font-size: 16px; font-weight: 700; color: var(--pink); }
+
+/* ─── HISTORY SCREEN ──────────────────────── */
+.history-list { display: flex; flex-direction: column; gap: 8px; }
+.history-item {
+  background: white; border-radius: 12px; padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+  box-shadow: var(--shadow);
+}
+.history-icon { font-size: 24px; flex-shrink: 0; }
+.history-info { flex: 1; }
+.history-label { font-size: 14px; font-weight: 600; }
+.history-date { font-size: 11px; color: var(--text2); margin-top: 2px; }
+.history-pts { font-family: 'Prompt', sans-serif; font-size: 16px; font-weight: 700; color: var(--green); }
+.history-pts.negative { color: var(--red); }
+
+/* ─── LOADING ─────────────────────────────── */
+.loading {
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px; color: var(--text2); font-size: 14px;
+  flex-direction: column; gap: 12px;
+}
+.spinner {
+  width: 32px; height: 32px;
+  border: 3px solid var(--pink-light);
+  border-top-color: var(--pink);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── TOAST ───────────────────────────────── */
+.toast {
+  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--text); color: white;
+  padding: 10px 20px; border-radius: 30px;
+  font-size: 13px; font-weight: 500;
+  opacity: 0; transition: all 0.3s; z-index: 200; white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ─── RESPONSIVE (clamp สำหรับ iframe มือถือ) ──── */
+.login-logo {
+  width: clamp(72px, 18vw, 88px);
+  height: clamp(72px, 18vw, 88px);
+  border-radius: clamp(20px, 5vw, 28px);
+  font-size: clamp(32px, 8vw, 40px);
+}
+.pin-box {
+  width: clamp(44px, 12vw, 54px);
+  height: clamp(52px, 14vw, 60px);
+  font-size: clamp(20px, 6vw, 24px);
+}
+.hero-pts { font-size: clamp(32px, 9vw, 42px); }
+.badge-icon {
+  width: clamp(48px, 14vw, 56px);
+  height: clamp(48px, 14vw, 56px);
+  font-size: clamp(22px, 6vw, 26px);
+}
+.nav-icon { font-size: clamp(18px, 5vw, 22px); }
+
+@media (max-width: 380px) {
+  .content { padding: 12px 12px 90px; }
+  .stats-row { grid-template-columns: 1fr; }
+  .badge-grid { grid-template-columns: repeat(3, 1fr); }
+  .cat-grid { grid-template-columns: 1fr; }
+}
+
+
+
+/* ─── PRODUCT KNOWLEDGE ───────────────────── */
+.pk-search-wrap { position: relative; margin-bottom: 12px; }
+.pk-search {
+  width: 100%; padding: 12px 16px 12px 42px;
+  border: 1.5px solid var(--border); border-radius: 30px;
+  font-family: 'Sarabun', sans-serif; font-size: 14px;
+  background: white; color: var(--text); outline: none;
+  transition: border-color 0.2s;
+}
+.pk-search:focus { border-color: var(--pink); }
+.pk-search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 16px; pointer-events: none; }
+.cat-filter { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 14px; scrollbar-width: none; }
+.cat-filter::-webkit-scrollbar { display: none; }
+.cat-pill {
+  padding: 6px 14px; border-radius: 20px; white-space: nowrap;
+  border: 1.5px solid var(--border); background: white;
+  font-family: 'Sarabun', sans-serif; font-size: 12px; font-weight: 600;
+  color: var(--text2); cursor: pointer; transition: all 0.2s; flex-shrink: 0;
+}
+.cat-pill.active { background: var(--pink); border-color: var(--pink); color: white; }
+.product-grid { display: flex; flex-direction: column; gap: 12px; }
+.product-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; cursor: pointer; transition: transform 0.15s; }
+.product-card:active { transform: scale(0.98); }
+.product-card-header { display: flex; align-items: center; gap: 12px; padding: 14px; }
+.product-cat-badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; background: var(--pink-pale); color: var(--pink-dark); white-space: nowrap; }
+.product-name { font-size: 14px; font-weight: 700; color: var(--text); flex: 1; }
+.product-price { font-size: 13px; font-weight: 700; color: var(--pink); white-space: nowrap; }
+.product-body { padding: 0 14px 14px; display: none; }
+.product-body.open { display: block; }
+.product-divider { height: 1px; background: var(--border); margin-bottom: 12px; }
+.product-section { margin-bottom: 10px; }
+.product-section-title { font-size: 11px; font-weight: 700; color: var(--pink-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.product-section-body { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.ingredient-tag { display: inline-block; padding: 3px 8px; margin: 2px 2px 2px 0; background: var(--pink-pale); color: var(--pink-dark); border-radius: 20px; font-size: 11px; font-weight: 600; }
+.skin-tag { display: inline-block; padding: 3px 8px; margin: 2px 2px 2px 0; background: #E8F8F0; color: #0F6E56; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.sales-tip-box { background: var(--pink-pale); border-left: 3px solid var(--pink); border-radius: 0 8px 8px 0; padding: 10px 12px; font-size: 12px; color: var(--text2); line-height: 1.6; font-style: italic; }
+.no-results { text-align: center; padding: 40px 20px; color: var(--text2); font-size: 14px; }
+
+/* ─── PRODUCT IMAGES ──────────────────────── */
+.product-img-wrap {
+  width: 100%; height: 180px; overflow: hidden;
+  border-radius: var(--radius) var(--radius) 0 0; background: var(--pink-pale);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.product-img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.3s;
+}
+.product-img-placeholder {
+  font-size: 48px; opacity: 0.3;
+}
+.product-card:active .product-img { transform: scale(0.98); }
+
+.key-claim-box {
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+  color: white; border-radius: 10px; padding: 12px 14px;
+  font-size: 14px; font-weight: 700; line-height: 1.5;
+  margin-bottom: 10px; text-align: center;
+}
+.texture-tag {
+  display: inline-block; padding: 3px 10px; margin-bottom: 8px;
+  background: #FFF8E7; color: #854F0B;
+  border-radius: 20px; font-size: 11px; font-weight: 600;
+}
+
+.before-after-wrap { margin-bottom: 10px; }
+.before-after-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;
+}
+.ba-img-box { text-align: center; }
+.ba-label {
+  font-size: 10px; font-weight: 700; padding: 2px 8px;
+  border-radius: 20px; margin-bottom: 4px; display: inline-block;
+}
+.ba-label.before { background: #F0F0F0; color: #666; }
+.ba-label.after  { background: #E8F8F0; color: #0F6E56; }
+.ba-img {
+  width: 100%; height: 120px; object-fit: cover;
+  border-radius: 10px; background: var(--pink-pale);
+}
+.ba-caption {
+  font-size: 11px; color: var(--text2); text-align: center;
+  font-style: italic; line-height: 1.5;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- LOGIN SCREEN                           -->
+<!-- ═══════════════════════════════════════ -->
+<div id="screen-login" class="screen active">
+  <div class="login-logo">🌸</div>
+  <div class="login-brand">Her Hyness</div>
+  <div class="login-sub">BA Academy</div>
+
+  <!-- Step 1: กรอก BA ID -->
+  <div class="login-card" id="login-step1">
+    <div class="login-step-title">กรอกรหัส BA ของคุณ</div>
+    <div class="input-wrap">
+      <input type="text" id="input-baid" placeholder="เช่น BA001" autocomplete="off">
+    </div>
+    <button class="btn-primary" onclick="doVerify()">ค้นหา →</button>
+    <div class="error-msg" id="error-step1"></div>
+  </div>
+
+  <!-- Step 2: ยืนยันตัวตน + PIN -->
+  <div class="login-card" id="login-step2" style="display:none">
+    <div class="verify-card" id="verify-card"></div>
+    <div class="login-step-title">กรอก PIN 4 หลัก</div>
+    <div class="pin-wrap">
+      <input class="pin-box" type="password" maxlength="1" inputmode="numeric" id="pin0">
+      <input class="pin-box" type="password" maxlength="1" inputmode="numeric" id="pin1">
+      <input class="pin-box" type="password" maxlength="1" inputmode="numeric" id="pin2">
+      <input class="pin-box" type="password" maxlength="1" inputmode="numeric" id="pin3">
+    </div>
+    <button class="btn-primary" onclick="doLogin()">เข้าสู่ระบบ ✓</button>
+    <button class="btn-secondary" onclick="backToStep1()">← กลับ</button>
+    <div class="error-msg" id="error-step2"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- MAIN SCREEN                            -->
+<!-- ═══════════════════════════════════════ -->
+<div id="screen-main" class="screen">
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="dot">🌸</div>
+      <div class="topbar-brand">BA Academy</div>
+    </div>
+    <div class="topbar-points">
+      <div class="topbar-pts-num" id="topbar-pts">—</div>
+      <div class="topbar-pts-lbl">pts</div>
+    </div>
+  </div>
+
+  <!-- CONTENT TABS -->
+  <div id="tab-home" class="content" style="display:block">
+    <!-- Hero -->
+    <div class="hero-card" id="hero-card">
+      <div class="hero-greeting">สวัสดีค่า 👋</div>
+      <div class="hero-name" id="hero-name">BA</div>
+      <div class="hero-points-row">
+        <div class="hero-pts" id="hero-pts">0</div>
+        <div class="hero-pts-lbl">คะแนนรวม</div>
+      </div>
+      <div class="tier-badge" id="tier-badge">🥉 Bronze</div>
+      <div class="progress-bar-wrap">
+        <div class="progress-label">
+          <span id="tier-label-current">Bronze</span>
+          <span id="tier-label-next">→ Silver (500 pts)</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num" id="stat-month-pts">0</div>
+        <div class="stat-lbl">pts เดือนนี้</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-quiz-count">0</div>
+        <div class="stat-lbl">Quiz ที่ทำ</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-login-count">0</div>
+        <div class="stat-lbl">วันที่ Login</div>
+      </div>
+    </div>
+
+    <!-- Activities -->
+    <div class="sec-title">กิจกรรมสะสมแต้ม</div>
+    <div class="activity-list">
+      <div class="activity-card" onclick="switchTab('quiz')">
+        <div class="activity-icon" style="background:#FDF0F3">📝</div>
+        <div class="activity-info">
+          <div class="activity-name">Product Quiz</div>
+          <div class="activity-desc">ทดสอบความรู้สินค้า Her Hyness</div>
+        </div>
+        <div class="activity-pts">+30~50</div>
+      </div>
+      <div class="activity-card">
+        <div class="activity-icon" style="background:#FFF8E7">⭐</div>
+        <div class="activity-info">
+          <div class="activity-name">Mystery Shopper</div>
+          <div class="activity-desc">Admin บันทึกคะแนนให้</div>
+        </div>
+        <div class="activity-pts">+100</div>
+      </div>
+      <div class="activity-card">
+        <div class="activity-icon" style="background:#EFF9F4">📅</div>
+        <div class="activity-info">
+          <div class="activity-name">Daily Login</div>
+          <div class="activity-desc">เข้าระบบทุกวัน รับแต้มสม่ำเสมอ</div>
+        </div>
+        <div class="activity-pts">+5</div>
+      </div>
+    </div>
+
+    <!-- Badges -->
+    <div class="sec-title">Badge ของฉัน</div>
+    <div class="badge-grid" id="badge-grid">
+      <div class="loading"><div class="spinner"></div></div>
+    </div>
+  </div>
+
+  <!-- ─── TAB: QUIZ ─────────────────────── -->
+  <div id="tab-quiz" class="content" style="display:none">
+    <!-- Quiz Start -->
+    <div id="quiz-start">
+      <div class="quiz-start-card">
+        <div class="quiz-start-icon">📝</div>
+        <div class="quiz-start-title">Product Quiz</div>
+        <div class="quiz-start-desc">ทดสอบความรู้ Her Hyness 10 ข้อ<br>ผ่าน 80% ขึ้นไป รับ 30 pts · ผ่าน 100% รับ 50 pts</div>
+      </div>
+      <div class="sec-title">เลือก Category</div>
+      <div class="cat-grid">
+        <button class="cat-btn selected" data-cat="ALL" onclick="selectCat(this)">🌸 ทุกหมวด</button>
+        <button class="cat-btn" data-cat="Cleansing" onclick="selectCat(this)">🧴 Cleansing</button>
+        <button class="cat-btn" data-cat="Sunscreen" onclick="selectCat(this)">☀️ Sunscreen</button>
+        <button class="cat-btn" data-cat="Serum" onclick="selectCat(this)">💜 Serum & Cream</button>
+        <button class="cat-btn" data-cat="Mask" onclick="selectCat(this)">🎭 Mask</button>
+        <button class="cat-btn" data-cat="Makeup" onclick="selectCat(this)">💄 Makeup</button>
+      </div>
+      <button class="btn-primary" onclick="startQuiz()">เริ่ม Quiz →</button>
+    </div>
+
+    <!-- Quiz In Progress -->
+    <div id="quiz-game" style="display:none">
+      <div class="quiz-counter"><span id="q-current">1</span> / <span id="q-total">10</span></div>
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="quiz-pbar" style="width:10%"></div>
+      </div>
+      <div class="question-card">
+        <div class="question-cat" id="q-cat">Category</div>
+        <div class="question-text" id="q-text">คำถาม...</div>
+      </div>
+      <div class="choices-list" id="choices-list"></div>
+      <div class="explanation-box" id="explanation-box"></div>
+      <button class="btn-primary" id="btn-next" onclick="nextQuestion()" style="display:none">ถัดไป →</button>
+    </div>
+
+    <!-- Quiz Result -->
+    <div id="quiz-result" style="display:none">
+      <div class="result-card">
+        <div class="result-emoji" id="result-emoji">🎉</div>
+        <div class="result-score" id="result-score">80%</div>
+        <div class="result-pts" id="result-pts">+30 pts</div>
+        <div class="result-detail" id="result-detail">ถูก 8 จาก 10 ข้อ</div>
+      </div>
+      <div id="new-badges-section" style="display:none">
+        <div class="sec-title">🏆 Badge ใหม่!</div>
+        <div class="badge-grid" id="new-badges-grid"></div>
+      </div>
+      <button class="btn-primary" onclick="resetQuiz()" style="margin-bottom:10px">ทำ Quiz อีกครั้ง</button>
+      <button class="btn-secondary" onclick="switchTab('home')">กลับหน้าหลัก</button>
+    </div>
+  </div>
+
+  <!-- ─── TAB: RANKING ──────────────────── -->
+  <div id="tab-ranking" class="content" style="display:none">
+    <div class="scope-tabs">
+      <button class="scope-tab active" onclick="switchScope('branch',this)">สาขา</button>
+      <button class="scope-tab" onclick="switchScope('region',this)">ภาค</button>
+      <button class="scope-tab" onclick="switchScope('national',this)">ทั่วประเทศ</button>
+    </div>
+    <div id="rank-list-wrap">
+      <div class="loading"><div class="spinner"></div><span>กำลังโหลด...</span></div>
+    </div>
+  </div>
+
+  <!-- ─── TAB: HISTORY ──────────────────── -->
+  <div id="tab-history" class="content" style="display:none">
+    <div id="history-wrap">
+      <div class="loading"><div class="spinner"></div><span>กำลังโหลด...</span></div>
+    </div>
+  </div>
+
+
+
+  <!-- ─── TAB: PRODUCTS ────────────────────── -->
+  <div id="tab-products" class="content" style="display:none">
+    <div class="pk-search-wrap">
+      <span class="pk-search-icon">🔍</span>
+      <input class="pk-search" id="pk-search" type="text" placeholder="ค้นหาสินค้า หรือ ingredient..." oninput="filterProducts()">
+    </div>
+    <div class="cat-filter" id="cat-filter"></div>
+    <div class="product-grid" id="product-grid">
+      <div class="loading"><div class="spinner"></div><span>กำลังโหลด...</span></div>
+    </div>
+  </div>
+
+  <!-- NAV BAR -->
+  <nav class="navbar" id="navbar">
+    <button class="nav-btn active" data-tab="home" onclick="switchTab('home')">
+      <span class="nav-icon">🏠</span>
+      <span>หน้าหลัก</span>
+      <span class="nav-dot"></span>
+    </button>
+    <button class="nav-btn" data-tab="quiz" onclick="switchTab('quiz')">
+      <span class="nav-icon">📝</span>
+      <span>Quiz</span>
+      <span class="nav-dot"></span>
+    </button>
+    <button class="nav-btn" data-tab="ranking" onclick="switchTab('ranking')">
+      <span class="nav-icon">🏆</span>
+      <span>Ranking</span>
+      <span class="nav-dot"></span>
+    </button>
+    <button class="nav-btn" data-tab="products" onclick="switchTab('products')">
+      <span class="nav-icon">🧴</span>
+      <span>สินค้า</span>
+      <span class="nav-dot"></span>
+    </button>
+    <button class="nav-btn" data-tab="history" onclick="switchTab('history')">
+      <span class="nav-icon">📜</span>
+      <span>ประวัติ</span>
+      <span class="nav-dot"></span>
+    </button>
+  </nav>
+</div>
+
+<!-- Badge Popup -->
+<div class="badge-popup" id="badge-popup">
+  <div class="badge-popup-card">
+    <div class="badge-popup-icon" id="popup-icon">🏆</div>
+    <div class="badge-popup-title" id="popup-title">Badge ใหม่!</div>
+    <div class="badge-popup-desc" id="popup-desc">คำอธิบาย</div>
+    <button class="btn-primary" onclick="closeBadgePopup()">ยอดเยี่ยม! 🎉</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+<script>
+const API_URL = 'https://script.google.com/macros/s/AKfycby3zgRN_-A92SyY_lZULhpJSnF84kaVk1AEHkAI_RLT9eJ57PXAEdvY6CBr-c2UZvHW/exec';
+
+// ── STATE ──
+let currentBA = null, quizQuestions = [], quizAnswers = {}, quizCurrentIndex = 0;
+let selectedCat = 'ALL', currentScope = 'branch', answered = false;
+
+// ── API ──
+async function api(action, params = {}) {
+  const url = new URL(API_URL);
+  url.searchParams.set('action', action);
+  url.searchParams.set('data', JSON.stringify(params));
+  const res = await fetch(url.toString(), { method: 'GET', redirect: 'follow' });
+  const text = await res.text();
+  try { return JSON.parse(text); }
+  catch(e) { console.error('Bad response:', text.substring(0,200)); throw new Error('Server error'); }
+}
+
+// ── LOGIN ──
+async function doVerify() {
+  const ba_id = document.getElementById('input-baid').value.trim();
+  if (!ba_id) { showError('step1','กรุณากรอกรหัส BA'); return; }
+  const btn = event.target; btn.textContent = 'กำลังค้นหา...'; btn.disabled = true;
+  try {
+    const res = await api('verifyBA', { ba_id });
+    if (res.ok) {
+      currentBA = res;
+      document.getElementById('verify-card').innerHTML =
+        `<div class="verify-name">${res.name}</div><div class="verify-detail">${res.branch} · ${res.channel}</div>`;
+      document.getElementById('login-step1').style.display = 'none';
+      document.getElementById('login-step2').style.display = 'block';
+      setTimeout(() => document.getElementById('pin0').focus(), 100);
+    } else { showError('step1', res.error); }
+  } catch(e) { showError('step1','ไม่สามารถเชื่อมต่อได้ กรุณาตรวจสอบอินเทอร์เน็ต'); }
+  btn.textContent = 'ค้นหา →'; btn.disabled = false;
+}
+
+async function doLogin() {
+  const pin = ['pin0','pin1','pin2','pin3'].map(id => document.getElementById(id).value).join('');
+  if (pin.length < 4) { showError('step2','กรุณากรอก PIN ให้ครบ 4 หลัก'); return; }
+  const btn = event.target; btn.textContent = 'กำลังตรวจสอบ...'; btn.disabled = true;
+  try {
+    const res = await api('loginBA', { ba_id: currentBA.ba_id, pin });
+    if (res.ok) { showToast('ยินดีต้อนรับกลับมา! 🌸'); showMainScreen(); }
+    else { showError('step2', res.error); }
+  } catch(e) { showError('step2','ไม่สามารถเชื่อมต่อได้'); }
+  btn.textContent = 'เข้าสู่ระบบ ✓'; btn.disabled = false;
+}
+
+function backToStep1() {
+  document.getElementById('login-step2').style.display = 'none';
+  document.getElementById('login-step1').style.display = 'block';
+  ['pin0','pin1','pin2','pin3'].forEach(id => document.getElementById(id).value = '');
+}
+
+// ── MAIN ──
+async function showMainScreen() {
+  document.getElementById('screen-login').style.display = 'none';
+  document.getElementById('screen-main').style.display = 'block';
+  loadProfile();
+}
+
+async function loadProfile() {
+  try {
+    const res = await api('getProfile', { ba_id: currentBA.ba_id });
+    if (!res.ok) return;
+    const { ba, totalPoints, tier, monthStats, badges } = res;
+    document.getElementById('topbar-pts').textContent = totalPoints.toLocaleString();
+    document.getElementById('hero-name').textContent = ba.name;
+    document.getElementById('hero-pts').textContent = totalPoints.toLocaleString();
+    const tierEmoji = { Bronze:'🥉', Silver:'🥈', Gold:'🥇', Platinum:'💎' };
+    document.getElementById('tier-badge').textContent = `${tierEmoji[tier.name]||''} ${tier.name}`;
+    document.getElementById('tier-label-current').textContent = tier.name;
+    document.getElementById('tier-label-next').textContent = tier.nextTier
+      ? `→ ${tier.nextTier.name} (${tier.nextTier.minPoints.toLocaleString()} pts)` : '🏆 Tier สูงสุดแล้ว!';
+    document.getElementById('progress-fill').style.width = Math.min(tier.progressToNext,100)+'%';
+    document.getElementById('stat-month-pts').textContent = monthStats.monthPoints.toLocaleString();
+    document.getElementById('stat-quiz-count').textContent = monthStats.quizCount;
+    document.getElementById('stat-login-count').textContent = monthStats.loginCount;
+    renderBadges(badges);
+  } catch(e) { console.error(e); }
+}
+
+function renderBadges(badges) {
+  document.getElementById('badge-grid').innerHTML = badges.map(b =>
+    `<div class="badge-item"><div class="badge-icon ${b.earned?'earned':'locked'}">${b.icon}</div><div class="badge-name">${b.name}</div></div>`
+  ).join('');
+}
+
+// ── TABS ──
+const tabs = ['home','quiz','ranking','products','history'];
+function switchTab(tab) {
+  tabs.forEach(t => {
+    document.getElementById('tab-'+t).style.display = t===tab?'block':'none';
+    const btn = document.querySelector(`[data-tab="${t}"]`);
+    if (btn) btn.classList.toggle('active', t===tab);
+  });
+  if (tab==='ranking') loadRanking(currentScope);
+  if (tab==='history') loadHistory();
+  if (tab==='products') setTimeout(initProducts, 50);
+}
+
+// ── QUIZ ──
+function selectCat(btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected'); selectedCat = btn.dataset.cat;
+}
+
+async function startQuiz() {
+  document.getElementById('quiz-start').style.display = 'none';
+  document.getElementById('quiz-game').style.display = 'block';
+  try {
+    const res = await api('getQuiz', { category: selectedCat });
+    if (!res.ok) { showToast(res.error||'ไม่สามารถโหลด Quiz ได้'); resetQuiz(); return; }
+    quizQuestions = res.questions; quizAnswers = {}; quizCurrentIndex = 0; renderQuestion();
+  } catch(e) { showToast('ไม่สามารถโหลด Quiz ได้'); resetQuiz(); }
+}
+
+function renderQuestion() {
+  answered = false;
+  const q = quizQuestions[quizCurrentIndex], total = quizQuestions.length;
+  document.getElementById('q-current').textContent = quizCurrentIndex+1;
+  document.getElementById('q-total').textContent = total;
+  document.getElementById('quiz-pbar').style.width = ((quizCurrentIndex+1)/total*100)+'%';
+  document.getElementById('q-cat').textContent = q.category;
+  document.getElementById('q-text').textContent = q.question;
+  document.getElementById('choices-list').innerHTML = ['A','B','C','D'].map(key =>
+    `<button class="choice-btn" onclick="selectAnswer('${q.quiz_id}','${key}',this)">
+      <div class="choice-key">${key}</div><div>${q.choices[key]}</div></button>`
+  ).join('');
+  document.getElementById('explanation-box').style.display = 'none';
+  document.getElementById('btn-next').style.display = 'none';
+}
+
+function selectAnswer(quiz_id, key, btn) {
+  if (answered) return; answered = true; quizAnswers[quiz_id] = key;
+  const q = quizQuestions[quizCurrentIndex], correct = q.correct.toUpperCase();
+  document.querySelectorAll('.choice-btn').forEach((b,i) => {
+    const bKey = ['A','B','C','D'][i];
+    if (bKey===correct) b.classList.add('correct');
+    else if (bKey===key && key!==correct) b.classList.add('wrong');
+  });
+  if (q.explanation) {
+    const expBox = document.getElementById('explanation-box');
+    expBox.textContent = '💡 '+q.explanation; expBox.style.display = 'block';
+  }
+  const nextBtn = document.getElementById('btn-next');
+  nextBtn.textContent = quizCurrentIndex===quizQuestions.length-1 ? 'ดูผลลัพธ์ 🎯' : 'ถัดไป →';
+  nextBtn.style.display = 'block';
+}
+
+function nextQuestion() {
+  quizCurrentIndex++;
+  if (quizCurrentIndex >= quizQuestions.length) submitQuizResult(); else renderQuestion();
+}
+
+async function submitQuizResult() {
+  document.getElementById('quiz-game').style.display = 'none';
+  document.getElementById('quiz-result').style.display = 'block';
+  try {
+    const res = await api('submitQuiz', { ba_id:currentBA.ba_id, quiz_id_list:quizQuestions.map(q=>q.quiz_id), answers:quizAnswers });
+    if (res.ok) {
+      const emoji = res.scorePct===100?'🌟':res.scorePct>=80?'🎉':res.scorePct>=50?'😊':'📚';
+      document.getElementById('result-emoji').textContent = emoji;
+      document.getElementById('result-score').textContent = res.scorePct+'%';
+      document.getElementById('result-pts').textContent = '+'+res.pointsEarned+' pts';
+      document.getElementById('result-detail').textContent = `ถูก ${res.correct} จาก ${res.total} ข้อ`;
+      if (res.newBadges && res.newBadges.length > 0) {
+        document.getElementById('new-badges-section').style.display = 'block';
+        document.getElementById('new-badges-grid').innerHTML = res.newBadges.map(b =>
+          `<div class="badge-item"><div class="badge-icon earned">${b.icon}</div><div class="badge-name">${b.name}</div></div>`
+        ).join('');
+        setTimeout(() => showBadgePopup(res.newBadges[0]), 800);
+      }
+      document.getElementById('topbar-pts').textContent =
+        (parseInt(document.getElementById('topbar-pts').textContent.replace(/,/g,'')||0)+res.pointsEarned).toLocaleString();
+    }
+  } catch(e) { document.getElementById('result-score').textContent = '—'; }
+}
+
+function resetQuiz() {
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-game').style.display = 'none';
+  document.getElementById('quiz-start').style.display = 'block';
+  document.getElementById('new-badges-section').style.display = 'none';
+}
+
+// ── RANKING ──
+function switchScope(scope, btn) {
+  currentScope = scope;
+  document.querySelectorAll('.scope-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active'); loadRanking(scope);
+}
+
+async function loadRanking(scope) {
+  const wrap = document.getElementById('rank-list-wrap');
+  wrap.innerHTML = '<div class="loading"><div class="spinner"></div><span>กำลังโหลด...</span></div>';
+  try {
+    const res = await api('getLeaderboard', { scope, ba_id:currentBA.ba_id });
+    if (!res.ok) { wrap.innerHTML = '<div class="loading">ไม่สามารถโหลดได้</div>'; return; }
+    const rc = ['gold','silver','bronze'];
+    wrap.innerHTML = '<div class="rank-list">'+res.leaderboard.map(ba =>
+      `<div class="rank-item ${ba.isMe?'me':''}">
+        <div class="rank-num ${rc[ba.rank-1]||''}">${ba.rank}</div>
+        <div class="rank-info"><div class="rank-name">${ba.name}${ba.isMe?' (ฉัน)':''}</div><div class="rank-branch">${ba.branch}</div></div>
+        <div class="rank-pts">${ba.points.toLocaleString()}</div>
+      </div>`).join('')+'</div>';
+    if (res.myRank && res.myRank.rank > 20)
+      wrap.innerHTML += `<div style="text-align:center;padding:12px;font-size:13px;color:var(--text2)">อันดับของคุณ: <strong style="color:var(--pink)">#${res.myRank.rank}</strong></div>`;
+  } catch(e) { wrap.innerHTML = '<div class="loading">ไม่สามารถเชื่อมต่อได้</div>'; }
+}
+
+// ── HISTORY ──
+const actLabel = { quiz:{icon:'📝',label:'ทำ Quiz'}, daily_login:{icon:'📅',label:'Daily Login'},
+  mystery_shopper:{icon:'⭐',label:'Mystery Shopper'}, sales_target:{icon:'🎯',label:'Sales Target'}, admin_manual:{icon:'✏️',label:'Admin บันทึก'} };
+
+async function loadHistory() {
+  const wrap = document.getElementById('history-wrap');
+  wrap.innerHTML = '<div class="loading"><div class="spinner"></div><span>กำลังโหลด...</span></div>';
+  try {
+    const res = await api('getHistory', { ba_id:currentBA.ba_id });
+    if (!res.ok || res.history.length===0) { wrap.innerHTML = '<div class="loading">ยังไม่มีประวัติ</div>'; return; }
+    wrap.innerHTML = '<div class="history-list">'+res.history.map(h => {
+      const info = actLabel[h.activity_type]||{icon:'💰',label:h.activity_type};
+      const d = new Date(h.timestamp);
+      const ds = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()+543} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;
+      return `<div class="history-item"><div class="history-icon">${info.icon}</div>
+        <div class="history-info"><div class="history-label">${info.label}</div><div class="history-date">${h.note||''} · ${ds}</div></div>
+        <div class="history-pts ${h.points<0?'negative':''}">+${h.points}</div></div>`;
+    }).join('')+'</div>';
+  } catch(e) { wrap.innerHTML = '<div class="loading">ไม่สามารถเชื่อมต่อได้</div>'; }
+}
+
+// ── UTILS ──
+function showError(step, msg) { document.getElementById('error-'+step).textContent = msg; }
+function showToast(msg) {
+  const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+function showBadgePopup(badge) {
+  document.getElementById('popup-icon').textContent = badge.icon;
+  document.getElementById('popup-title').textContent = 'ปลดล็อก: '+badge.name;
+  document.getElementById('popup-desc').textContent = badge.desc;
+  document.getElementById('badge-popup').classList.add('show');
+}
+function closeBadgePopup() { document.getElementById('badge-popup').classList.remove('show'); }
+
+// PIN auto-advance
+['pin0','pin1','pin2','pin3'].forEach((id,i) => {
+  document.getElementById(id).addEventListener('input', function() { if(this.value.length===1 && i<3) document.getElementById('pin'+(i+1)).focus(); });
+  document.getElementById(id).addEventListener('keydown', function(e) { if(e.key==='Backspace' && !this.value && i>0) document.getElementById('pin'+(i-1)).focus(); });
+});
+document.getElementById('input-baid').addEventListener('keypress', e => { if(e.key==='Enter') doVerify(); });
+
+// ── PRODUCT KNOWLEDGE ──
+let PRODUCTS = [
+  {id:'c1',cat:'Cleansing',name:'Amino Miracle Gentle Cleansing Foam',price:'',skin:['ทุกสภาพผิว','ผิวแพ้ง่าย'],ingredients:['Amino Acid','pH 5.5'],benefit:'โฟมล้างหน้าอ่อนโยน pH ใกล้เคียงผิว ไม่แห้งตึง ไม่ทำลาย Skin Barrier',howto:'บีบโฟม 1-2 ปั๊ม ฟองฟูบนมือ นวดเบาๆ 30 วิ ล้างออก',tip:'เหมาะลูกค้าที่บอกว่าล้างหน้าแล้วหน้าแห้งตึงค่ะ pH ใกล้เคียงผิว'},
+  {id:'c2',cat:'Cleansing',name:'Prebio Acne Cleansing Foam',price:'',skin:['ผิวสิว','ผิวมัน'],ingredients:['Prebiotic','Niacinamide','Salicylic Acid'],benefit:'ฆ่าเชื้อ C.Acnes 96% ด้วย Prebiotic ไม่ทำให้ผิวแห้งระคายเคือง',howto:'ใช้เช้า-เย็น นวดบริเวณที่เป็นสิว',tip:'ต่างจาก BHA ทั่วไปตรงที่ Prebiotic ทำให้แบคทีเรียดีสมดุล'},
+  {id:'c3',cat:'Cleansing',name:'Pure White Brightening Milk Cleanser',price:'',skin:['ผิวหมองคล้ำ','ผิวแห้ง'],ingredients:['Glutathione','Tranexamic Acid'],benefit:'คลีนซิ่งนม ล้างเครื่องสำอางพร้อม Brightening ลดฝ้า กระ',howto:'ใช้แทน Makeup Remover นวดทั่วหน้า เช็ดออก',tip:'ล้างเครื่องสำอางพร้อมบำรุงผิวในขั้นตอนเดียวค่ะ'},
+  {id:'sp1',cat:'Skin Prep',name:'HYA Hydra Toner',price:'',skin:['ทุกสภาพผิว','ผิวแห้ง'],ingredients:['Hyaluronic Acid 5 ชั้น','Centella'],benefit:'เติมความชุ่มชื้น 5 ระดับผิว เสริม Skin Barrier',howto:'หลังล้างหน้า แพทเบาๆ หรือใช้สำลีเช็ด',tip:'HA 5 ชั้นดูดซึมได้ทุกชั้นผิว ต่างจาก HA ทั่วไป'},
+  {id:'sp2',cat:'Skin Prep',name:'Pore Minimizer Serum Toner',price:'',skin:['ผิวมัน','รูขุมขนกว้าง'],ingredients:['BHA','Niacinamide 5%'],benefit:'ลดรูขุมขนที่มองเห็นได้ใน 2 สัปดาห์',howto:'ใช้ตอนเย็นหลัง Toner บริเวณที่ต้องการ',tip:'Toner และ Serum ในขั้นตอนเดียว เหมาะคนไม่ชอบหลายสเต็ป'},
+  {id:'sp3',cat:'Skin Prep',name:'Brightening Vitamin C Toner',price:'',skin:['ผิวหมองคล้ำ','รอยสิว'],ingredients:['Vitamin C 20%','Niacinamide','Alpha-Arbutin'],benefit:'Vit C 20% ลดรอยดำ ฝ้า กระ กระจ่างใสใน 2 สัปดาห์',howto:'ใช้ตอนเช้า ตามด้วยกันแดดเสมอ',tip:'Vit C ต้องตามด้วยกันแดดนะคะ ไม่งั้นสลายตัวจากแสง'},
+  {id:'s1',cat:'Sunscreen',name:'HYA+ Water Sunscreen SPF50+ PA++++',price:'1,190–1,690฿',skin:['ทุกสภาพผิว','ผิวแพ้ง่าย'],ingredients:['NANOTECH-Melatonin','Hyaluronic Acid'],benefit:'เนื้อน้ำเบาสุด NANOTECH-Melatonin ซ่อมแซม DNA ผิวระหว่างวัน',howto:'ทาเป็นขั้นตอนสุดท้ายก่อนออกบ้าน ทาซ้ำทุก 2-3 ชม.',tip:'Melatonin ปกติทำงานแค่กลางคืน แต่ NANOTECH-Melatonin ทำงานกลางวันด้วยค่ะ'},
+  {id:'s2',cat:'Sunscreen',name:'UV Adapt Sunscreen SPF50+ PA++++',price:'1,190–1,690฿',skin:['ทุกสภาพผิว'],ingredients:['Smart UV Adapt','Anti Blue Light'],benefit:'Smart UV Adapt ปรับตามแสง + กัน Blue Light จากหน้าจอ',howto:'ทาก่อนออกจากบ้าน เหมาะคนทำงานออฟฟิศ',tip:'คนนั่งหน้าคอมทั้งวัน ต้องตัวนี้เลยค่ะ กัน Blue Light ด้วย'},
+  {id:'s3',cat:'Sunscreen',name:'Hexapeptide Dry Touch Sunscreen SPF50+ PA++++',price:'1,690฿',skin:['ผิวมัน','ผิวออกกำลังกาย'],ingredients:['Hexapeptide','miRNA Anti-Aging','Water Resistant 80 min'],benefit:'กันน้ำ 80 นาที ผิวแมตต์ + Peptide ต้านริ้วรอย',howto:'ทาก่อนออกกำลังกายหรือกิจกรรมกลางแจ้ง',tip:'ลูกค้าชอบออกกำลังกาย ตัวนี้เลยค่ะ กันน้ำจริง 80 นาที'},
+  {id:'s4',cat:'Sunscreen',name:'Marshmallow Glowing Tinted Sunscreen',price:'',skin:['ทุกสภาพผิว'],ingredients:['Tinted','Oil Control 12hr'],benefit:'เนื้อทินท์ เบลอผิว คุมมัน 12 ชม.',howto:'ทาแทนรองพื้นเบาๆ สำหรับ Everyday Look',tip:'ลูกค้าไม่ชอบแต่งหน้าหนัก กันแดด+เบลอผิวในขั้นตอนเดียว'},
+  {id:'s5',cat:'Sunscreen',name:'Marshmallow Radiance C Sunscreen',price:'950฿',skin:['ผิวหมองคล้ำ','ฝ้ากระ'],ingredients:['Vitamin C','Niacinamide'],benefit:'ลดฝ้า/กระ 48% ใน 7 วัน ราคาย่อมเยาที่สุดในไลน์',howto:'ทาหลัง Serum ตอนเช้า',tip:'ราคาเป็นมิตร แต่ผลดี เหมาะลูกค้ากังวลเรื่องฝ้าและงบจำกัด'},
+  {id:'sc1',cat:'Serum & Cream',name:'Prebio Complete Anti-Acne Serum',price:'1,290฿',skin:['ผิวสิว','ผิวมัน'],ingredients:['Prebiotic','Salicylic Acid','Zinc'],benefit:'สมดุล Microbiome ป้องกันสิวใหม่ ลดการอักเสบ',howto:'ทาหลัง Toner เช้า-เย็น บริเวณที่เป็นสิว',tip:'ต่างจาก BHA ทั่วไปตรงที่ Prebiotic ทำให้แบคทีเรียดีสมดุล'},
+  {id:'sc2',cat:'Serum & Cream',name:'3D Power Acne Clear Gel Spot',price:'330฿',skin:['ผิวสิว'],ingredients:['Salicylic Acid','Tea Tree','Zinc'],benefit:'เจลแต้มสิวยุบเร็วภายใน 8 ชม. ใช้แต้มได้ทุกวัน',howto:'แต้มเฉพาะจุดที่มีสิว ก่อนนอนหรือระหว่างวัน',tip:'ราคา 330฿ Must-have คู่กับ Prebio Serum'},
+  {id:'sc3',cat:'Serum & Cream',name:'Hydra Glow Advanced Skin Booster Serum',price:'1,390฿',skin:['ผิวแห้ง','ผิวขาดน้ำ'],ingredients:['Hyaluronic Acid 5 ชั้น','Centella','Ceramide'],benefit:'เซรั่มเติมน้ำ 5 ระดับ ผิวอิ่มน้ำกระจ่างใสใน 7 วัน',howto:'ทาหลัง Toner ขณะผิวยังหมาดๆ',tip:'เหมาะลูกค้าอยู่ในแอร์ทั้งวัน หรือผิวขาดน้ำจากผลิตภัณฑ์แรงๆ'},
+  {id:'sc4',cat:'Serum & Cream',name:'Bio-Retinal Melatonin Advanced Repair Serum',price:'2,190฿',skin:['ผิวริ้วรอย','ผิวหย่อนคล้อย'],ingredients:['Bakuchiol','NANOTECH-Melatonin','Peptide'],benefit:'Bakuchiol = Retinol ธรรมชาติ ใช้กลางวันได้ ไม่แพ้แสง',howto:'ทาตอนกลางคืนหลัง Toner ใช้ได้ทุกวัน',tip:'ลูกค้ากังวลเรื่องริ้วรอยแต่ไม่กล้าใช้ Retinol เพราะกลัวแพ้ อันนี้คือคำตอบ'},
+  {id:'sc5',cat:'Serum & Cream',name:'Bio-Peptide Advanced Youth+Glow Serum',price:'1,990฿',skin:['ผิวริ้วรอย','ผิวหมองคล้ำ'],ingredients:['Multi-Peptide','Vitamin C','Niacinamide'],benefit:'Peptide ลดริ้วรอย + Brightening ในเซรั่มเดียว',howto:'ทาตอนเช้าหลัง Toner',tip:'2 in 1 ทั้ง Anti-aging และ Brightening เหมาะคนไม่ชอบหลายสเต็ป'},
+  {id:'sc6',cat:'Serum & Cream',name:'Double Ampoule C White + Youth Shot',price:'2,190฿',skin:['ผิวหมองคล้ำ','ผิวริ้วรอย'],ingredients:['Vitamin C เข้มข้น','Youth Peptide','Glutathione'],benefit:'Ampoule 2 formula ใน 1 ขวด เข้มข้นกว่า Serum 3-5 เท่า',howto:'หยด 2-3 หยด ทาทั่วหน้า เช้าหรือเย็น',tip:'เหมาะลูกค้าที่อยากเห็นผลเร็ว Ampoule เข้มข้นกว่า Serum มาก'},
+  {id:'sc7',cat:'Serum & Cream',name:'Royal Lift White Concentrate Night Spa',price:'1,900฿',skin:['ผิวหมองคล้ำ','ผิวริ้วรอย'],ingredients:['Royal Jelly','Niacinamide','Peptide'],benefit:'Royal Jelly กระตุ้นคอลลาเจน 2 เท่า ตื่นมาผิวกระจ่างใส',howto:'ทาเป็นขั้นตอนสุดท้ายก่อนนอน',tip:'นอนหลับแล้วผิวสวยขึ้นเลยค่ะ Royal Jelly กระตุ้น Collagen ระหว่างนอน'},
+  {id:'m1',cat:'Mask',name:'Instant Bright Black Mask',price:'',skin:['ผิวหมองคล้ำ','รอยสิว'],ingredients:['Niacinamide','Vitamin C','Binchotan'],benefit:'ลดรอยดำ รอยสิว กระจ่างใส เห็นผลทันทีหลังใช้',howto:'ทิ้งไว้ 15-20 นาที ล้างออก 2-3 ครั้ง/สัปดาห์',tip:'มาส์กดำแต่ผิวกระจ่าง Binchotan ดูดสิ่งสกปรก Vit C ทำให้ผิวใส'},
+  {id:'m2',cat:'Mask',name:'Instant Youth AOX Platinum Mask',price:'',skin:['ผิวริ้วรอย','ต้องการผิวกลาสสกิน'],ingredients:['Nano Platinum','AOX Complex','Peptide'],benefit:'Nano Platinum ต้านอนุมูลอิสระสูงสุด ผิว Glasskin ทันที',howto:'ทาบางๆ ทิ้งไว้ 15 นาที ล้างออก',tip:'แนะนำก่อนงาน Event สำคัญ ผิว Glow ทันที'},
+  {id:'m3',cat:'Mask',name:'Instant Youth PDRN Platinum Mask',price:'',skin:['ผิวเสีย','ผิวต้องการฟื้นฟู'],ingredients:['PDRN','Nano Platinum'],benefit:'PDRN ซ่อมแซมผิวระดับเซลล์ ผิวเหมือนเบบี้สกิน',howto:'ใช้ 2-3 ครั้ง/สัปดาห์ ตอนกลางคืน ทิ้งไว้ 20 นาที',tip:'PDRN ที่ใช้ในคลินิก ตอนนี้อยู่ในมาส์กที่บ้านได้เลย ราคาถูกกว่าไปคลินิกมาก'},
+  {id:'mk1',cat:'Makeup',name:'Hydra Plump Lip Glaze',price:'490฿',skin:['ปากแห้ง'],ingredients:['Hyaluronic Acid','Peptide'],benefit:'ลิปกลอส HA เติมปากอวบอิ่ม ชุ่มชื้น เงางาม',howto:'ทาทั่วปาก หรือตรงกลางเพื่อเพิ่ม Dimension',tip:'ปากแห้งแตก อันนี้เลยค่ะ HA ช่วยเติมน้ำ ปากนุ่มชุ่มทั้งวัน'},
+  {id:'mk2',cat:'Makeup',name:'HYA Water Mousse Lip Blur',price:'580฿',skin:['ต้องการสีสัน','ปากแห้ง'],ingredients:['Hyaluronic Acid','Squalane'],benefit:'ลิปมูสเนื้อน้ำ สีชัด ปากนุ่ม ไม่แห้ง ใส่สบายทั้งวัน',howto:'แต้มตรงกลางปาก Blend ออก หรือทาทั่วปาก',tip:'เนื้อบางเบา ปากไม่แห้ง เหมาะลูกค้ากังวลลิปทำให้ปากดำ'},
+];
+
+let filteredProducts = [...PRODUCTS], activeCat = 'ทั้งหมด', openCards = new Set();
+
+async function initProducts() {
+  const grid = document.getElementById('product-grid');
+  // ถ้าโหลดแล้วไม่ต้องโหลดซ้ำ
+  if (PRODUCTS.length > 0) { renderProducts(); return; }
+
+  grid.innerHTML = '<div class="loading"><div class="spinner"></div><span>กำลังโหลดสินค้า...</span></div>';
+  try {
+    const res = await api('getProducts');
+    if (res.ok && res.products.length > 0) {
+      PRODUCTS = res.products;
+      filteredProducts = [...PRODUCTS];
+    }
+    // ถ้า Sheets ยังไม่มีข้อมูล ให้ใช้ hardcoded data เดิม (fallback)
+  } catch(e) {
+    console.log('Using local product data');
+  }
+
+  const cats = ['ทั้งหมด', ...new Set(PRODUCTS.map(p => p.cat))];
+  document.getElementById('cat-filter').innerHTML = cats.map(c =>
+    `<button class="cat-pill ${c===activeCat?'active':''}" onclick="filterByCat('${c}',this)">${c}</button>`
+  ).join('');
+  filteredProducts = [...PRODUCTS];
+  renderProducts();
+}
+
+function filterByCat(cat, btn) {
+  activeCat = cat;
+  document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active'); filterProducts();
+}
+
+function filterProducts() {
+  const q = document.getElementById('pk-search').value.toLowerCase();
+  filteredProducts = PRODUCTS.filter(p => {
+    const matchCat = activeCat==='ทั้งหมด' || p.cat===activeCat;
+    const matchQ = !q || p.name.toLowerCase().includes(q) || p.ingredients.join(' ').toLowerCase().includes(q)
+      || p.benefit.toLowerCase().includes(q) || p.skin.join(' ').toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+  renderProducts();
+}
+
+function renderProducts() {
+  const grid = document.getElementById('product-grid');
+  if (filteredProducts.length === 0) {
+    grid.innerHTML = '<div class="no-results">🔍 ไม่พบสินค้าที่ค้นหา</div>'; return;
+  }
+  grid.innerHTML = filteredProducts.map(p => {
+    const isOpen = openCards.has(p.id);
+    const hasImg = p.image_url && p.image_url.startsWith('http');
+    const hasBefore = p.before_url && p.before_url.startsWith('http');
+    const hasAfter  = p.after_url  && p.after_url.startsWith('http');
+    const hasBA = hasBefore || hasAfter;
+
+    return `<div class="product-card" id="card-${p.id}" onclick="toggleCard('${p.id}')">
+      ${hasImg ? `
+        <div class="product-img-wrap">
+          <img class="product-img" src="${p.image_url}" alt="${p.name}" loading="lazy"
+            onerror="this.parentElement.innerHTML='<div class=\"product-img-placeholder\">🧴</div>'">
+        </div>` : ''}
+      <div class="product-card-header">
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap">
+            <span class="product-cat-badge">${p.cat}</span>
+            ${p.texture ? `<span class="texture-tag">${p.texture}</span>` : ''}
+            ${p.price ? `<span class="product-price">${p.price}</span>` : ''}
+          </div>
+          <div class="product-name">${p.name}</div>
+        </div>
+        <div style="font-size:18px;flex-shrink:0" id="arrow-${p.id}">${isOpen ? '▲' : '▼'}</div>
+      </div>
+      <div class="product-body ${isOpen ? 'open' : ''}" id="body-${p.id}">
+        <div class="product-divider"></div>
+        ${p.key_claim ? `<div class="key-claim-box">⭐ ${p.key_claim}</div>` : ''}
+        <div class="product-section">
+          <div class="product-section-title">✨ จุดเด่น</div>
+          <div class="product-section-body">${p.benefit}</div>
+        </div>
+        <div class="product-section">
+          <div class="product-section-title">🧬 Key Ingredients</div>
+          <div>${p.ingredients.map(i => `<span class="ingredient-tag">${i}</span>`).join('')}</div>
+        </div>
+        <div class="product-section">
+          <div class="product-section-title">👤 เหมาะกับ</div>
+          <div>${p.skin.map(s => `<span class="skin-tag">${s}</span>`).join('')}</div>
+        </div>
+        <div class="product-section">
+          <div class="product-section-title">📋 วิธีใช้</div>
+          <div class="product-section-body">${p.howto}</div>
+        </div>
+        ${hasBA ? `
+        <div class="product-section">
+          <div class="product-section-title">📸 Before / After</div>
+          <div class="before-after-wrap">
+            <div class="before-after-row">
+              ${hasBefore ? `<div class="ba-img-box">
+                <div class="ba-label before">Before</div>
+                <img class="ba-img" src="${p.before_url}" alt="Before" loading="lazy">
+              </div>` : '<div></div>'}
+              ${hasAfter ? `<div class="ba-img-box">
+                <div class="ba-label after">After</div>
+                <img class="ba-img" src="${p.after_url}" alt="After" loading="lazy">
+              </div>` : '<div></div>'}
+            </div>
+            ${p.before_after_caption ? `<div class="ba-caption">${p.before_after_caption}</div>` : ''}
+          </div>
+        </div>` : ''}
+        <div class="product-section">
+          <div class="product-section-title">💬 Sales Tip</div>
+          <div class="sales-tip-box">"${p.tip}"</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCard(id) {
+  openCards.has(id) ? openCards.delete(id) : openCards.add(id);
+  const body = document.getElementById('body-'+id), arrow = document.getElementById('arrow-'+id);
+  if (body) body.classList.toggle('open', openCards.has(id));
+  if (arrow) arrow.textContent = openCards.has(id)?'▲':'▼';
+}
+</script>
+</body>
+</html>
