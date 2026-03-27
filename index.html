@@ -526,6 +526,54 @@ body {
 .skin-tag { display: inline-block; padding: 3px 8px; margin: 2px 2px 2px 0; background: #E8F8F0; color: #0F6E56; border-radius: 20px; font-size: 11px; font-weight: 600; }
 .sales-tip-box { background: var(--pink-pale); border-left: 3px solid var(--pink); border-radius: 0 8px 8px 0; padding: 10px 12px; font-size: 12px; color: var(--text2); line-height: 1.6; font-style: italic; }
 .no-results { text-align: center; padding: 40px 20px; color: var(--text2); font-size: 14px; }
+
+/* ─── PRODUCT IMAGES ──────────────────────── */
+.product-img-wrap {
+  width: 100%; height: 180px; overflow: hidden;
+  border-radius: var(--radius) var(--radius) 0 0; background: var(--pink-pale);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.product-img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.3s;
+}
+.product-img-placeholder {
+  font-size: 48px; opacity: 0.3;
+}
+.product-card:active .product-img { transform: scale(0.98); }
+
+.key-claim-box {
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+  color: white; border-radius: 10px; padding: 12px 14px;
+  font-size: 14px; font-weight: 700; line-height: 1.5;
+  margin-bottom: 10px; text-align: center;
+}
+.texture-tag {
+  display: inline-block; padding: 3px 10px; margin-bottom: 8px;
+  background: #FFF8E7; color: #854F0B;
+  border-radius: 20px; font-size: 11px; font-weight: 600;
+}
+
+.before-after-wrap { margin-bottom: 10px; }
+.before-after-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;
+}
+.ba-img-box { text-align: center; }
+.ba-label {
+  font-size: 10px; font-weight: 700; padding: 2px 8px;
+  border-radius: 20px; margin-bottom: 4px; display: inline-block;
+}
+.ba-label.before { background: #F0F0F0; color: #666; }
+.ba-label.after  { background: #E8F8F0; color: #0F6E56; }
+.ba-img {
+  width: 100%; height: 120px; object-fit: cover;
+  border-radius: 10px; background: var(--pink-pale);
+}
+.ba-caption {
+  font-size: 11px; color: var(--text2); text-align: center;
+  font-style: italic; line-height: 1.5;
+}
 </style>
 </head>
 <body>
@@ -1037,7 +1085,7 @@ function closeBadgePopup() { document.getElementById('badge-popup').classList.re
 document.getElementById('input-baid').addEventListener('keypress', e => { if(e.key==='Enter') doVerify(); });
 
 // ── PRODUCT KNOWLEDGE ──
-const PRODUCTS = [
+let PRODUCTS = [
   {id:'c1',cat:'Cleansing',name:'Amino Miracle Gentle Cleansing Foam',price:'',skin:['ทุกสภาพผิว','ผิวแพ้ง่าย'],ingredients:['Amino Acid','pH 5.5'],benefit:'โฟมล้างหน้าอ่อนโยน pH ใกล้เคียงผิว ไม่แห้งตึง ไม่ทำลาย Skin Barrier',howto:'บีบโฟม 1-2 ปั๊ม ฟองฟูบนมือ นวดเบาๆ 30 วิ ล้างออก',tip:'เหมาะลูกค้าที่บอกว่าล้างหน้าแล้วหน้าแห้งตึงค่ะ pH ใกล้เคียงผิว'},
   {id:'c2',cat:'Cleansing',name:'Prebio Acne Cleansing Foam',price:'',skin:['ผิวสิว','ผิวมัน'],ingredients:['Prebiotic','Niacinamide','Salicylic Acid'],benefit:'ฆ่าเชื้อ C.Acnes 96% ด้วย Prebiotic ไม่ทำให้ผิวแห้งระคายเคือง',howto:'ใช้เช้า-เย็น นวดบริเวณที่เป็นสิว',tip:'ต่างจาก BHA ทั่วไปตรงที่ Prebiotic ทำให้แบคทีเรียดีสมดุล'},
   {id:'c3',cat:'Cleansing',name:'Pure White Brightening Milk Cleanser',price:'',skin:['ผิวหมองคล้ำ','ผิวแห้ง'],ingredients:['Glutathione','Tranexamic Acid'],benefit:'คลีนซิ่งนม ล้างเครื่องสำอางพร้อม Brightening ลดฝ้า กระ',howto:'ใช้แทน Makeup Remover นวดทั่วหน้า เช็ดออก',tip:'ล้างเครื่องสำอางพร้อมบำรุงผิวในขั้นตอนเดียวค่ะ'},
@@ -1065,11 +1113,28 @@ const PRODUCTS = [
 
 let filteredProducts = [...PRODUCTS], activeCat = 'ทั้งหมด', openCards = new Set();
 
-function initProducts() {
-  const cats = ['ทั้งหมด', ...new Set(PRODUCTS.map(p=>p.cat))];
+async function initProducts() {
+  const grid = document.getElementById('product-grid');
+  // ถ้าโหลดแล้วไม่ต้องโหลดซ้ำ
+  if (PRODUCTS.length > 0) { renderProducts(); return; }
+
+  grid.innerHTML = '<div class="loading"><div class="spinner"></div><span>กำลังโหลดสินค้า...</span></div>';
+  try {
+    const res = await api('getProducts');
+    if (res.ok && res.products.length > 0) {
+      PRODUCTS = res.products;
+      filteredProducts = [...PRODUCTS];
+    }
+    // ถ้า Sheets ยังไม่มีข้อมูล ให้ใช้ hardcoded data เดิม (fallback)
+  } catch(e) {
+    console.log('Using local product data');
+  }
+
+  const cats = ['ทั้งหมด', ...new Set(PRODUCTS.map(p => p.cat))];
   document.getElementById('cat-filter').innerHTML = cats.map(c =>
     `<button class="cat-pill ${c===activeCat?'active':''}" onclick="filterByCat('${c}',this)">${c}</button>`
   ).join('');
+  filteredProducts = [...PRODUCTS];
   renderProducts();
 }
 
@@ -1092,28 +1157,76 @@ function filterProducts() {
 
 function renderProducts() {
   const grid = document.getElementById('product-grid');
-  if (filteredProducts.length===0) { grid.innerHTML='<div class="no-results">🔍 ไม่พบสินค้าที่ค้นหา</div>'; return; }
-  grid.innerHTML = filteredProducts.map(p => `
-    <div class="product-card" onclick="toggleCard('${p.id}')">
+  if (filteredProducts.length === 0) {
+    grid.innerHTML = '<div class="no-results">🔍 ไม่พบสินค้าที่ค้นหา</div>'; return;
+  }
+  grid.innerHTML = filteredProducts.map(p => {
+    const isOpen = openCards.has(p.id);
+    const hasImg = p.image_url && p.image_url.startsWith('http');
+    const hasBefore = p.before_url && p.before_url.startsWith('http');
+    const hasAfter  = p.after_url  && p.after_url.startsWith('http');
+    const hasBA = hasBefore || hasAfter;
+
+    return `<div class="product-card" id="card-${p.id}" onclick="toggleCard('${p.id}')">
+      ${hasImg ? `
+        <div class="product-img-wrap">
+          <img class="product-img" src="${p.image_url}" alt="${p.name}" loading="lazy"
+            onerror="this.parentElement.innerHTML='<div class=\"product-img-placeholder\">🧴</div>'">
+        </div>` : ''}
       <div class="product-card-header">
         <div style="flex:1">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap">
             <span class="product-cat-badge">${p.cat}</span>
-            ${p.price?`<span class="product-price">${p.price}`+'</span>':''}
+            ${p.texture ? `<span class="texture-tag">${p.texture}</span>` : ''}
+            ${p.price ? `<span class="product-price">${p.price}</span>` : ''}
           </div>
           <div class="product-name">${p.name}</div>
         </div>
-        <div style="font-size:18px" id="arrow-${p.id}">${openCards.has(p.id)?'▲':'▼'}</div>
+        <div style="font-size:18px;flex-shrink:0" id="arrow-${p.id}">${isOpen ? '▲' : '▼'}</div>
       </div>
-      <div class="product-body ${openCards.has(p.id)?'open':''}" id="body-${p.id}">
+      <div class="product-body ${isOpen ? 'open' : ''}" id="body-${p.id}">
         <div class="product-divider"></div>
-        <div class="product-section"><div class="product-section-title">✨ จุดเด่น</div><div class="product-section-body">${p.benefit}</div></div>
-        <div class="product-section"><div class="product-section-title">🧬 Key Ingredients</div><div>${p.ingredients.map(i=>`<span class="ingredient-tag">${i}</span>`).join('')}</div></div>
-        <div class="product-section"><div class="product-section-title">👤 เหมาะกับ</div><div>${p.skin.map(s=>`<span class="skin-tag">${s}</span>`).join('')}</div></div>
-        <div class="product-section"><div class="product-section-title">📋 วิธีใช้</div><div class="product-section-body">${p.howto}</div></div>
-        <div class="product-section"><div class="product-section-title">💬 Sales Tip</div><div class="sales-tip-box">"${p.tip}"</div></div>
+        ${p.key_claim ? `<div class="key-claim-box">⭐ ${p.key_claim}</div>` : ''}
+        <div class="product-section">
+          <div class="product-section-title">✨ จุดเด่น</div>
+          <div class="product-section-body">${p.benefit}</div>
+        </div>
+        <div class="product-section">
+          <div class="product-section-title">🧬 Key Ingredients</div>
+          <div>${p.ingredients.map(i => `<span class="ingredient-tag">${i}</span>`).join('')}</div>
+        </div>
+        <div class="product-section">
+          <div class="product-section-title">👤 เหมาะกับ</div>
+          <div>${p.skin.map(s => `<span class="skin-tag">${s}</span>`).join('')}</div>
+        </div>
+        <div class="product-section">
+          <div class="product-section-title">📋 วิธีใช้</div>
+          <div class="product-section-body">${p.howto}</div>
+        </div>
+        ${hasBA ? `
+        <div class="product-section">
+          <div class="product-section-title">📸 Before / After</div>
+          <div class="before-after-wrap">
+            <div class="before-after-row">
+              ${hasBefore ? `<div class="ba-img-box">
+                <div class="ba-label before">Before</div>
+                <img class="ba-img" src="${p.before_url}" alt="Before" loading="lazy">
+              </div>` : '<div></div>'}
+              ${hasAfter ? `<div class="ba-img-box">
+                <div class="ba-label after">After</div>
+                <img class="ba-img" src="${p.after_url}" alt="After" loading="lazy">
+              </div>` : '<div></div>'}
+            </div>
+            ${p.before_after_caption ? `<div class="ba-caption">${p.before_after_caption}</div>` : ''}
+          </div>
+        </div>` : ''}
+        <div class="product-section">
+          <div class="product-section-title">💬 Sales Tip</div>
+          <div class="sales-tip-box">"${p.tip}"</div>
+        </div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 function toggleCard(id) {
